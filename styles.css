@@ -1,0 +1,254 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff9ecd 0%, #ff69b4 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+.background-hearts {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.message-container {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    max-width: 90%;
+    width: 600px;
+}
+
+.message {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: #ff1493;
+    opacity: 0;
+    position: absolute;
+    top: 20%; /* Agrega esta línea para mover los mensajes más arriba */
+    white-space: normal;
+    text-shadow: 3px 3px 6px rgba(255,20,147,0.3);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 15px 30px rgba(255,20,147,0.2);
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0.8) rotate(-5deg);
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 3px solid rgba(255,20,147,0.3);
+    backdrop-filter: blur(5px);
+}
+
+
+.message.active {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    animation: messageFloat 3s ease-in-out infinite;
+}
+
+@keyframes messageFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.whatsapp-message {
+    background: linear-gradient(135deg, #ffcce6 0%, #ffe6f2 100%);
+    padding: 20px;
+    border-radius: 25px;
+    max-width: 90%;
+    margin: 20px auto;
+    box-shadow: 0 10px 25px rgba(255,20,147,0.15);
+    position: relative;
+    border: 2px solid rgba(255,20,147,0.2);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.typing-indicator {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.typing-indicator span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(to bottom, #ff69b4, #ff1493);
+    border-radius: 50%;
+    margin: 0 3px;
+    animation: typing 1s infinite;
+}
+
+.final-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(255, 255, 255, 0.98);
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(255,20,147,0.3);
+    z-index: 1000;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 3px solid #ff69b4;
+    animation: glow 2s infinite;
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 30px #ff69b4; }
+    50% { box-shadow: 0 0 50px #ff1493; }
+}
+
+.final-message.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    animation: celebration 0.5s ease-out;
+}
+
+@keyframes celebration {
+    0% { transform: translate(-50%, -50%) scale(0) rotate(-180deg); }
+    80% { transform: translate(-50%, -50%) scale(1.1) rotate(10deg); }
+    100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+.final-message img {
+    max-width: 300px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 20px rgba(255,20,147,0.2);
+    transform: rotate(-3deg);
+    transition: transform 0.3s ease;
+    animation: imageFloat 3s ease-in-out infinite;
+}
+
+@keyframes imageFloat {
+    0%, 100% { transform: rotate(-3deg) translateY(0); }
+    50% { transform: rotate(3deg) translateY(-10px); }
+}
+
+.final-message img:hover {
+    transform: rotate(3deg) scale(1.1);
+    box-shadow: 0 15px 30px rgba(255,20,147,0.4);
+}
+
+.final-text {
+    font-size: 2.8rem;
+    background: linear-gradient(45deg, #ff1493, #ff69b4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    text-shadow: 3px 3px 6px rgba(255,20,147,0.2);
+    animation: textPop 2s infinite;
+}
+
+@keyframes textPop {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); text-shadow: 0 0 20px #ff69b4; }
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: heartFloat 10s linear infinite;
+    opacity: 0;
+    filter: drop-shadow(0 0 10px rgba(255,20,147,0.3));
+}
+
+@keyframes heartFloat {
+    0% {
+        transform: translateY(100vh) scale(0.5) rotate(0deg);
+        opacity: 0;
+    }
+    20% { opacity: 0.9; }
+    80% { opacity: 0.9; }
+    100% {
+        transform: translateY(-100vh) scale(1.8) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.sparkle {
+    position: absolute;
+    pointer-events: none;
+    animation: sparkleAnimation 1s linear forwards;
+}
+
+@keyframes sparkleAnimation {
+    0% { transform: scale(0) rotate(0deg); opacity: 1; }
+    100% { transform: scale(1) rotate(180deg); opacity: 0; }
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    .message-container {
+        padding: 15px;
+    }
+    .message {
+        padding: 20px;
+    }
+    .final-message {
+        padding: 25px;
+        width: 90%;
+    }
+    .final-message img {
+        max-width: 220px;
+    }
+    .final-text {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .final-text {
+        font-size: 1.5rem;
+    }
+}
+
+.birthday-cake {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    animation: cakeFloat 3s ease-in-out infinite;
+}
+
+@keyframes cakeFloat {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+}
